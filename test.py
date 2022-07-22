@@ -1,11 +1,14 @@
-def palindrom(s):
-    if len(s) <= 1:
-        return True
+def arrange(seq, curr=0):
+    if curr == len(seq)-1:
+        return
     else:
-        
-        return ((s[0] == s[-1]) and palindrom(s[1:-1]))
-        
-        
+        if seq[curr] % 2 == 0:
+            arrange(seq, curr=curr+1)
+        else:
+            seq[curr], seq[curr+1] = seq[curr+1], seq[curr]
+            arrange(seq, curr=curr+1)
 
 
-print(palindrom("WOW"))
+seq = [1, 2, 3, 8, 9]
+arrange(seq)
+print(seq)
