@@ -1,14 +1,12 @@
-def arrange(seq, curr=0):
-    if curr == len(seq)-1:
-        return
-    else:
-        if seq[curr] % 2 == 0:
-            arrange(seq, curr=curr+1)
-        else:
-            seq[curr], seq[curr+1] = seq[curr+1], seq[curr]
-            arrange(seq, curr=curr+1)
+import random
 
 
-seq = [1, 2, 3, 8, 9]
-arrange(seq)
+def shuffle(seq):
+    index1 = random.randrange(len(seq))
+    index2 = random.randrange(len(seq))
+    seq[index1], seq[index2] = seq[index2], seq[index1]
+
+
+seq = [1, 2, 3, 7]
+shuffle(seq)
 print(seq)
