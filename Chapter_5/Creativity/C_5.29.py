@@ -30,5 +30,5 @@ def join(seq_1, seq_2):
 
 seq_1 = [1, 2, 3, 5]
 seq_2 = [2, 6]
-print(seq_1)
 print(join(seq_1, seq_2))
+
