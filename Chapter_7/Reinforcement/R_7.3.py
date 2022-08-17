@@ -1,7 +1,6 @@
 '''
-escribe a good algorithm for concatenating two singly linked lists L and
-M, given only references to the first node of each list, into a single list L
-that contains all the nodes of L followed by all the nodes of M.
+Describe a recursive algorithm that counts the number of nodes in a singly
+linked list.
 '''
 class SinglyList:
     class _Node:
@@ -30,6 +29,16 @@ class SinglyList:
             while tail_one._next != None:
                 tail_one = tail_one._next
             tail_one._next = other._head
+
+    def count(self):
+        temp = self._head
+        num = 0
+        def counter(head):
+            if head._next  == None:
+                return 1
+            else:
+                return 1 + counter(head._next)
+        return counter(temp)
         
             
             
@@ -46,3 +55,4 @@ foo.add(4)
 foo.add(5)
 foo.add(6)
 linkedlist.concatenate(foo)
+print(linkedlist.count())
