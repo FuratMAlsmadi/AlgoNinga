@@ -1,9 +1,6 @@
 '''
-Describe a non recursive method for finding, by link hopping, the middle
-node of a doubly linked list with header and trailer sentinels. In the case
-of an even number of nodes, report the node slightly left of center as the
-“middle.” (Note: This method must only use link hopping; it cannot use a
-counter.) What is the running time of this method?
+Give a fast algorithm for concatenating two doubly linked lists L and M,
+with header and trailer sentinel nodes, into a single list L.
 '''
 
 
@@ -69,6 +66,18 @@ class _DoublyLinkedBase:
         else:
             return self.find_middle(start._next, end._prev)
 
+    def concatenate(self, other):
+        if isinstance(other, _DoublyLinkedBase):
+            self._trailer._prev._next = other._header._next
+            other._header._next._prev = self._trailer._prev
+            self._trailer._next = other._trailer._next
+            self._trailer._prev = other._trailer._prev
+            other._header._next = None
+            other._header._prev = None
+            self._size = self.__len__() + other.__len__()
+        else:
+            return TypeError
+
 
 var = _DoublyLinkedBase()
 var1 = var._insert_between(1, var._header, var._trailer)
@@ -77,3 +86,15 @@ var3 = var._insert_between(3, var2, var._trailer)
 var4 = var._insert_between(4, var3, var._trailer)
 var5 = var._insert_between(5, var4, var._trailer)
 print(var.find_middle(var._header, var._trailer))
+
+foo = _DoublyLinkedBase()
+foo1 = foo._insert_between(6, foo._header, foo._trailer)
+foo2 = foo._insert_between(7, foo1, foo._trailer)
+foo3 = foo._insert_between(8, foo2, foo._trailer)
+foo4 = foo._insert_between(9, foo3, foo._trailer)
+foo5 = foo._insert_between(10, foo4, foo._trailer)
+
+var.concatenate(foo)
+print(var.find_middle(var._header, var._trailer))
+
+print(len(var))
