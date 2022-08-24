@@ -1,3 +1,9 @@
+'''
+Repeat the previous process using recursion. Your method should not
+contain any loops. How much space does your method use in addition to
+the space used for L?
+'''
+
 from doubly_linked_base import _DoublyLinkedBase
 
 class PositionalList(_DoublyLinkedBase):
@@ -72,6 +78,11 @@ class PositionalList(_DoublyLinkedBase):
     while cursor is not None:
       yield cursor.element()
       cursor = self.after(cursor)
+  def __reversed__(self):
+    cursor = self.last()
+    while cursor is not None:
+      yield cursor.element()
+      cursor = self.before(cursor)
 
   #------------------------------- mutators -------------------------------
   # override inherited version to return Position, rather than Node
@@ -122,6 +133,16 @@ class PositionalList(_DoublyLinkedBase):
           return self.last()
       else:
           return None
+  def recu_find(self,e):
+    temp = self.first()
+    def find_e(p):
+      if p.element() == e:
+        return p
+      else:
+        if self.after(p):
+          return find_e(self.after(p))  
+    return find_e(temp)  
+    
          
           
 
@@ -133,5 +154,8 @@ p4 = L.add_after(p3,1)
 p5 = L.add_after(p4,3)
 p6 = L.add_last(8)
 print(list(L.__iter__()))
-L.delete(L.find(3))
+temp = L.first()
+L.delete(L.recu_find(3))
 print(list(L.__iter__()))
+for i in L.__reversed__():
+  print(i)
